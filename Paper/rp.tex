@@ -38,142 +38,124 @@
 % \setcounter{page}{1}
 
 \section{Introduction}
+% \begin{quote}
+%     An eye for an eye, makes the whole world blind.
+% \end{quote}
+I always find it intriguing and perhaps deparating that in some fields of
+research, it takes several years to even a decade for a paper to be published.
+The pubclication cycle varies greatly across disciplines and venues, from
+computer science conferences to economics journal\cite{hadavand2024publishing}.
+One of the crucial step in publication is the now commonly used peer review
+process, which serve as the gatekeeper for the profession. Inside this
+procedure, slowness can be caused by late submission of referee reports,
+author's delaying of revision, or maybe the editors sitting on the paper before
+assigning them for review or sending for publish. The idea of peer review seems
+simple at the first glance but there are so many dimensions and configurations
+to the process\cite{soergel2013open} that it is of my interests to take a
+closer look at just one small aspect of it -- the degree of blinding/anonymity.
+Table \ref{tab:review_mechanism} presents the meaning of each terminology.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Authors}    & \multicolumn{2}{c}{\textbf{Reviewers}}                       \\
+        \cmidrule(lr){2-3}
+                            & \textbf{Anonymized}                    & \textbf{Identified} \\
+        \midrule
+        \textbf{Anonymized} & Double blind                           & x                   \\
+        \textbf{Identified} & Single blind                           & Open review         \\
+        \bottomrule
+    \end{tabular}
+    \caption{Review mechanisms based on the anonymity of authors and reviewers.}
+    \label{tab:review_mechanism}
+\end{table}
+
+In 2003, \cite{bachand2003accuracy} conducted a survey over 554 journals from
+18 disciplines which finds that 58\% journals uses double-blind, 37\%
+single-blind and only 5\% uses open peer review. However, journal's decision is
+not static either. For example, as documented by \citet{pontille2014blind}, AER
+has gone several changes regarding its choice of anonymity
+(single-double-single-double-single) from 1973 to 2011. One may observe a
+certain pattern that the majority of a certain field prefers one system to
+another. The advocates and opponents each have their compelling reasons.
 \begin{quote}
-    An eye for an eye, makes the whole world blind. \cite{gandhi}
+    The change to "single-blind" refereeing (the referees' identity remains undisclosed) is
+    effective July 1, 2011. Easy access to search engines increasingly limits the effectiveness of the double-blind process in
+    maintaining anonymity. Further, it increases the administrative cost of the journals and makes it harder
+    for referees to identify an author's potential conflicts of interest arising, for example, from consulting. \citet{AER2011}
 \end{quote}
-% add a figure about the result after revision, the disgusting sweet and salty hamburger
+In double-blind reviews, neither authors nor reviewers know each other’s identities during the review process. This is designed to eliminate potential biases related to the author’s affiliation or reputation and to enable reviewers to provide honest feedback without fear of retaliation. In single-blind reviews, the authors’ identities are revealed to the reviewers but not vice versa.
 
-% \paragraph{Preamble} As a newbie to the research field, I am constantly getting surprised by how
-% long it takes for economics paper to get publish. Once a professor mentioned
-% that his daughter was just born when he started the project. She is 14 years
-% old now when his paper gets to see the daylight. I was struck and astonished by
-% the lengthy procedure in producing/giving birth to a published economics paper.
-% Especially so when I am close to someone who has published multiple papers in
-% computer science (conferences) related discipline over the course of his
-% graduate study. Though publishing in computer conferences and economics journal
-% are not directly comparable, it has always made me wonder the drivers
-% behind/contributor to the slow process. A prominent step in the publication
-% cycle is the now commonly used peer review system, during which time 2-3
-% referees will read the submitted paper and give feedback and suggestive
-% acceptance decision to the final decision make -- the journal editor. It seems
-% that the peer review system the main culprit. Multiple factors/stakeholders are
-% involved in this lengthy process. The slowness can be caused by the delay of
-% referee reports or by the dilatory behavior of revision done by the author. Or
-% maybe that editors have been sitting on submitted paper for too long before
-% sending them for referee or putting accepted paper onto the journal. I find the
-% entire process intriguing especially when it comes to the different incentives
-% of different parties, each having their own objective. While reading about the
-% peer review system, I discovered something very interesting in terms of how
-% blind the process is -- anonymity. Journal/conferences review process adopt
-% different degrees of blindness, each with their specific configuration of
-% anonymity. For example, double blindness implies that after the editor/system
-% distributes submitted papers to reviewers. Reviewers and authors do not know
-% each other's identity. The transaction/communication between them remain
-% anonymous via the editor or under the xxx identity. The author's identity will
-% be known to all once the paper is accepted while the reviewers are thanked as
-% "anonymous" in the acknowledgement section. The blindness of both sides are to
-% ensure that the reviewer judges the paper without being affected by his or her
-% personal affliation/relationship with the author. Reviewers are not known from
-% the start til end as a way to prevent revenge/xxx behaviors from the author
-% side so that reviewers can give truthful feedback without any fear of hurting
-% their xxx. The practice is commonly used in conferences such as xxx xxx and
-% xxx. There are slight modifications with respect to double blind, which is
-% whether the feedback is made public in the process or whether reviewers are
-% able to see each other's comment. The second degree of blindness is called
-% single blind. This is because in this case, the authors' names are just under
-% the title, ceteris parabas. This practice is xxx in xxx. Many that criticized
-% the current publication practices are advocating for a more open process which
-% doesn't remove anybody's names, while exposing the feedback/content to the
-% public for transparency and ensuring accountability and fairness. There are
-% many other suggestions on the publication practice (pre and post pub review,
-% xxx etc. ) in order to remedize the current flaws embeded in the system. While
-% openness are preferrable, it is less common in practice. Double and single
-% blind are xxx in scientific research review. However, though the details of
-% degree of blindness differ from journal to journal. It is also xxx that in a
-% broader sense of blindness, journals differs in the respective scientific
-% field, be it natural science, computer science or social science. The
-% selection/adoption of a certain blinding mechanism is certainly related to the
-% specificity of the journal itself but also related to the characteristics of
-% the discipline. how easy it is to remain anonymous (see the suggestion by gpt).
-% Intuitively speaking, double blinding incurs additional cost of ensuring the
-% paper does not reveal identifying information in any way. This put
-% administrative overhead in the process especially when the paper is long and
-% such xxx is hard to detect (but maybe current text analysis algorithm has made
-% it more efficient and costless?) In addition, sometimes the paper is already in
-% preprint and circulated for sometime. Or chances are that the authors have
-% given talks about their work in progress. Therefore, name removal does not make
-% too much difference since the author's identity can be guessed right away.
-% According to anectal evidence, reviwers sometimes prefer seeing the author's
-% name, but it helps with optimizing the time they spend in reviewing. If the
-% author has published many high quality paper, the reviewer may not spend too
-% much time checking the proof in the paper. A prior belief about the author
-% helps the reviewer form a posterior belief of the paper, assigning time
-% correspondingly based on his or her belief about the submitted paper's quality.
-%     {I dont talk about whether the author's prior belief about the author is biased
-%         or not. Let's assume it is a fair belief, not related to race, gender,
-%         institution, only about how qualified/experienced the author is. The paper's
-%         quality is indeed related to the author's repuation.} I intend to formalize
-% this as a principal - agent problem \citep{} where the journal editor is the
-% principal and the reviewer as agent. First I only consider one editor and one
-% reviewer. {Later extend to one editor and 3 reviewers (who can see each other's
-%         comment), which may give rise to another equilibrium.} The submitted paper
-% follows a certain distribution, the editor/principal wants high-quality reviews
-% that improve the journal's reputation while adhering to deadlines and resource
-% constraints. However, the agent's objective does not align well with the
-% principal. Their task is to provide timely, thorough, and fair reviews.
-% However, they have their own utility function, including competing priorities
-% (e.g., their own research, teaching, or personal time). The disalignment of
-% incentive may create a problem (reviewers do not receive any credit except the
-% anonymous thank you. he wants to minimize the time spent on it. Adopt some
-% heuristic in assessing the paper or create some noises by not assessing the
-% paper well(spend much less time).) The editor wants to minimize the noise in
-% paper assessment to ensurer paper quality. The editor chooses a mechanism that
-% balances well his cost and benefit depending on some parameter lambda that
-% defines the characteristics of the field.
+Advocates for more transparent practices have called for open review systems,
+where all identities are revealed, and feedback is made publicly accessible to
+enhance accountability and fairness. However, double- and single-blind reviews
+remain the standard in scientific research.
 
-% Section 2 gives an overview of the related literature on peer review system
-% (sceintometrics and journalogy which are the research on research.) A very
-% broad field of study. It also reviews some of the theoretical/seminal paper on
-% principal agent problem and relates them to this specific subject of interests.
-% Section 3 formalizes the intuition in this section and derives some suggestive
-% results. Last section discusses possible extension and more theoretical results
-% that can be explored.
+Anonymity also influences reviewer behavior. Anecdotal evidence suggests that
+some reviewers may prefer knowing the authors’ identities, as it allows them to
+form prior beliefs about the paper’s quality based on the authors’ reputations.
+These priors can help reviewers allocate their time more efficiently—for
+example, by focusing less on verifying technical details if the author has a
+strong publication track record. This raises important questions about how such
+heuristics impact the review process and whether they align with the goal of
+ensuring high-quality, unbiased reviews.
+
+The peer review system has two main objectives, to screen out bad science from
+being published and to help authors improve the quality of their paper before
+publication \citep{tan2018peer}. In this paper, I only focus on the first
+function -- discovering the true quality of the paper. The journal editor wants
+to maximize welfare by accepting high quality papers and rejecting bad ones.
+However, the referee work is delegated to the reviewer who can exert more or
+less effort in reviewing the work. The accuracy of his acceptance
+recommendation is subject to the effort level and potential reviewer bias. I
+restrict myself to only binary cases in terms of paper quality and author type
+to greatly simplify the analysis.
+
+The next section introduces a field that focuses on the study of research
+itself, namely \textit{journalology}, along with some empirical evidence and
+explanations. Section \ref{sec:model} formalizes the intuition presented here.
+Section \ref{sec:analysis} provides a preliminary analysis of the factors
+influencing a journal's choices. The final section discusses issues I either
+deliberately ignored or overlooked in the previous sections.
 
 \section{Related Literature}
 There is a large literature on the topic of peer review, upon which a new
-scientific field is built called "Journalogy".
+scientific field is built called \textit{"Journalology".}
 
-Many empirical evidence focuses on detecting bias, evaluating fairness,
-measuring quality of the peer review under different blinding mechanism,
+Many empirical studies focus on detecting bias, evaluating fairness, and
+measuring the quality of peer review under different blinding mechanisms,
 notably single-blind and double-blind. Interestingly, as tabulated and
 summarized in the book chapter by \citet{largent2016blind}, experimental and
-statistical results are divided. And there is no congruence even til now with
-respect to the effect or non-effect of peer review practice
+statistical results are divided. There is no congruence even until now with
+respect to the effect or non-effect of peer review practices
 \cite{blank1991effects,tomkins2017reviewer}.
 
-\citet{tan2018peer} has provided a summary of the strength and weakness of different referee practices. For example, single-blind may result in reviewers favoring big names compared to double-blind where author's identifying information is removed. Yet in double-blind, there is the question of true anonymity and the cost of preparing paper for review. \cite{snodgrass2007single} lists a set of 6 benefits against 21 potential costs of double-blind while mentioning that the complete masking of authorship is not feasible in practice. Some pushes for a more open process with varying degree of transparency ranging from open feedback to open referee identity. Inevitably, there are concerns from all sides (editor, reviewer, author) about the maximal openess in the process. Therefore, I especially appreciate the project by \citet{soergel2013open}, which gives birth to the platform \href{https://openreview.net/}{OpenReview.net} that supports a myriad of configurations such that journal and conferences can experiment with different dimension of open scholarship. \footnote{\textit{"The word "open" denotes access to information. To characterize a system, then, we must state who has Open Scholarship and Peer Review access to what information, and when. (Additionally there may be special conditions on that access)."}}
+\citet{tan2018peer} has provided a summary of the strengths and weaknesses of different referee practices. For example, single-blind may result in reviewers favoring big names compared to double-blind, where authors' identifying information is removed. Yet, in double-blind, there is the question of true anonymity and the cost of preparing papers for review. \cite{snodgrass2007single} lists a set of 6 benefits against 21 potential costs of double-blind while mentioning that the complete masking of authorship is not feasible in practice. Some push for a more open process with varying degrees of transparency, ranging from open feedback to open referee identity. Inevitably, there are concerns from all sides (editor, reviewer, author) about maximal openness in the process. Therefore, I especially appreciate the project by \citet{soergel2013open}, which gave birth to the platform \href{https://openreview.net/}{OpenReview.net} that supports a myriad of configurations such that journals and conferences can experiment with different dimensions of open scholarship.\footnote{\textit{"The word "open" denotes access to information. To characterize a system, then, we must state who has Open Scholarship and Peer Review access to what information, and when. (Additionally, there may be special conditions on that access)."}}
 
 Finally, since the topic of peer review is not discipline-specific, relevant
 studies look at it from varying angles. With respect to the more economic
 theory perspective, I was first inspired by the work of
-\citet{garcia2015principal} which proposes a reward system for the reviewer
-under moral hazard problem where the editor is the principal and reviewer the
-agent. Other works focus on the interplay between reviewer and editor
+\citet{garcia2015principal}, which proposes a reward system for the reviewer
+under a moral hazard problem where the editor is the principal and the reviewer
+the agent. Other works focus on the interplay between reviewer and editor
 \citep{garcia2021interplay}, author and editor \cite{garcia2022fraud}, as well
 as author and reviewer \citep{radzvilas2023incentives}. Most of this research
 is published in the \textit{Scientometrics} journal dedicated to scholarly
-literature. It is interesting to see how the economics theory are applied in a
+literature. It is interesting to see how economic theories are applied in a
 rather concrete setting.
 
 Drawing on relevant literature, I base the model on the empirical evidence that
-the mostly used peer review mechanism are single-blind and double-blind,
-journal's review system varies from one to another, and some degree of bias
-occurs in single-blind. Though I recognize the principal-agent nature in this
-setting, I do not model the classical adverse selection or moral hazard problem
-due to the fact under the two mechanisms I am going to study, the agent
-(reviewer)'s identity is masked and they receive non reward for the work they
-performed. Incentives or the manipulation of incentives are not considered
-here. I present the full model in the next section.
+the most commonly used peer review mechanisms are single-blind and
+double-blind. Therefore, I only study the editor's binary choice of mechanism.
+Moreover, since there is no consensus on which mechanism dominates the other, I
+assume that journals make their decisions according to the specificity of the
+discipline. Though I recognize the principal-agent nature of this setting, I do
+not model the classical adverse selection or moral hazard problem, as under the
+two mechanisms I study, the agent (reviewer)'s identity is masked, and they
+receive no reward for the work they perform. Incentives or the manipulation of
+incentives are not considered here. I present the full model in the next
+section.
+
 \section{Model} \label{sec:model}
 Consider a peer review system with one journal editor and one reviewer. The
 system is described as follows.
