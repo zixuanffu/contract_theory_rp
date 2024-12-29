@@ -1,0 +1,556 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,graphicx,psfrag,amsmath,amsfonts,verbatim}
+\usepackage[small,bf]{caption}
+\usepackage{amsthm}
+% \usepackage[hidelinks]{hyperref}
+\usepackage{hyperref}
+\usepackage{bbm} % for the indicator function to look good
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{fancyhdr} % for the header
+\usepackage{booktabs} % for regression table display (toprule, midrule, bottomrule)
+\usepackage{adjustbox} % for regression table display
+\usepackage{threeparttable} % to use table notes
+\usepackage{natbib} % for bibliography
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\input newcommand.tex
+% \renewcommand{\thesubsection}{} 
+\bibliographystyle{apalike}
+% \setlength{\parindent}{0pt} % remove the automatic indentation
+
+\title{Exploring blinding in peer review system}
+\author{Fu Zixuan \\{\small {Research proposal}}}
+\date{\today}
+
+\begin{document}
+\maketitle
+% \thispagestyle{empty}
+% \begin{abstract}
+
+% \end{abstract}
+
+% \newpage
+% \thispagestyle{empty}
+% \tableofcontents
+% \newpage
+
+% \setcounter{page}{1}
+
+\section{Introduction}
+\begin{quote}
+    An eye for an eye, makes the whole world blind. \cite{gandhi}
+\end{quote}
+% add a figure about the result after revision, the disgusting sweet and salty hamburger
+
+% \paragraph{Preamble} As a newbie to the research field, I am constantly getting surprised by how
+% long it takes for economics paper to get publish. Once a professor mentioned
+% that his daughter was just born when he started the project. She is 14 years
+% old now when his paper gets to see the daylight. I was struck and astonished by
+% the lengthy procedure in producing/giving birth to a published economics paper.
+% Especially so when I am close to someone who has published multiple papers in
+% computer science (conferences) related discipline over the course of his
+% graduate study. Though publishing in computer conferences and economics journal
+% are not directly comparable, it has always made me wonder the drivers
+% behind/contributor to the slow process. A prominent step in the publication
+% cycle is the now commonly used peer review system, during which time 2-3
+% referees will read the submitted paper and give feedback and suggestive
+% acceptance decision to the final decision make -- the journal editor. It seems
+% that the peer review system the main culprit. Multiple factors/stakeholders are
+% involved in this lengthy process. The slowness can be caused by the delay of
+% referee reports or by the dilatory behavior of revision done by the author. Or
+% maybe that editors have been sitting on submitted paper for too long before
+% sending them for referee or putting accepted paper onto the journal. I find the
+% entire process intriguing especially when it comes to the different incentives
+% of different parties, each having their own objective. While reading about the
+% peer review system, I discovered something very interesting in terms of how
+% blind the process is -- anonymity. Journal/conferences review process adopt
+% different degrees of blindness, each with their specific configuration of
+% anonymity. For example, double blindness implies that after the editor/system
+% distributes submitted papers to reviewers. Reviewers and authors do not know
+% each other's identity. The transaction/communication between them remain
+% anonymous via the editor or under the xxx identity. The author's identity will
+% be known to all once the paper is accepted while the reviewers are thanked as
+% "anonymous" in the acknowledgement section. The blindness of both sides are to
+% ensure that the reviewer judges the paper without being affected by his or her
+% personal affliation/relationship with the author. Reviewers are not known from
+% the start til end as a way to prevent revenge/xxx behaviors from the author
+% side so that reviewers can give truthful feedback without any fear of hurting
+% their xxx. The practice is commonly used in conferences such as xxx xxx and
+% xxx. There are slight modifications with respect to double blind, which is
+% whether the feedback is made public in the process or whether reviewers are
+% able to see each other's comment. The second degree of blindness is called
+% single blind. This is because in this case, the authors' names are just under
+% the title, ceteris parabas. This practice is xxx in xxx. Many that criticized
+% the current publication practices are advocating for a more open process which
+% doesn't remove anybody's names, while exposing the feedback/content to the
+% public for transparency and ensuring accountability and fairness. There are
+% many other suggestions on the publication practice (pre and post pub review,
+% xxx etc. ) in order to remedize the current flaws embeded in the system. While
+% openness are preferrable, it is less common in practice. Double and single
+% blind are xxx in scientific research review. However, though the details of
+% degree of blindness differ from journal to journal. It is also xxx that in a
+% broader sense of blindness, journals differs in the respective scientific
+% field, be it natural science, computer science or social science. The
+% selection/adoption of a certain blinding mechanism is certainly related to the
+% specificity of the journal itself but also related to the characteristics of
+% the discipline. how easy it is to remain anonymous (see the suggestion by gpt).
+% Intuitively speaking, double blinding incurs additional cost of ensuring the
+% paper does not reveal identifying information in any way. This put
+% administrative overhead in the process especially when the paper is long and
+% such xxx is hard to detect (but maybe current text analysis algorithm has made
+% it more efficient and costless?) In addition, sometimes the paper is already in
+% preprint and circulated for sometime. Or chances are that the authors have
+% given talks about their work in progress. Therefore, name removal does not make
+% too much difference since the author's identity can be guessed right away.
+% According to anectal evidence, reviwers sometimes prefer seeing the author's
+% name, but it helps with optimizing the time they spend in reviewing. If the
+% author has published many high quality paper, the reviewer may not spend too
+% much time checking the proof in the paper. A prior belief about the author
+% helps the reviewer form a posterior belief of the paper, assigning time
+% correspondingly based on his or her belief about the submitted paper's quality.
+%     {I dont talk about whether the author's prior belief about the author is biased
+%         or not. Let's assume it is a fair belief, not related to race, gender,
+%         institution, only about how qualified/experienced the author is. The paper's
+%         quality is indeed related to the author's repuation.} I intend to formalize
+% this as a principal - agent problem \citep{} where the journal editor is the
+% principal and the reviewer as agent. First I only consider one editor and one
+% reviewer. {Later extend to one editor and 3 reviewers (who can see each other's
+%         comment), which may give rise to another equilibrium.} The submitted paper
+% follows a certain distribution, the editor/principal wants high-quality reviews
+% that improve the journal's reputation while adhering to deadlines and resource
+% constraints. However, the agent's objective does not align well with the
+% principal. Their task is to provide timely, thorough, and fair reviews.
+% However, they have their own utility function, including competing priorities
+% (e.g., their own research, teaching, or personal time). The disalignment of
+% incentive may create a problem (reviewers do not receive any credit except the
+% anonymous thank you. he wants to minimize the time spent on it. Adopt some
+% heuristic in assessing the paper or create some noises by not assessing the
+% paper well(spend much less time).) The editor wants to minimize the noise in
+% paper assessment to ensurer paper quality. The editor chooses a mechanism that
+% balances well his cost and benefit depending on some parameter lambda that
+% defines the characteristics of the field.
+
+% Section 2 gives an overview of the related literature on peer review system
+% (sceintometrics and journalogy which are the research on research.) A very
+% broad field of study. It also reviews some of the theoretical/seminal paper on
+% principal agent problem and relates them to this specific subject of interests.
+% Section 3 formalizes the intuition in this section and derives some suggestive
+% results. Last section discusses possible extension and more theoretical results
+% that can be explored.
+
+\section{Related Literature}
+There is a large literature on the topic of peer review, upon which a new
+scientific field is built called "Journalogy".
+
+Many empirical evidence focuses on detecting bias, evaluating fairness,
+measuring quality of the peer review under different blinding mechanism,
+notably single-blind and double-blind. Interestingly, as tabulated and
+summarized in the book chapter by \citet{largent2016blind}, experimental and
+statistical results are divided. And there is no congruence even til now with
+respect to the effect or non-effect of peer review practice
+\cite{blank1991effects,tomkins2017reviewer}.
+
+\citet{tan2018peer} has provided a summary of the strength and weakness of different referee practices. For example, single-blind may result in reviewers favoring big names compared to double-blind where author's identifying information is removed. Yet in double-blind, there is the question of true anonymity and the cost of preparing paper for review. \cite{snodgrass2007single} lists a set of 6 benefits against 21 potential costs of double-blind while mentioning that the complete masking of authorship is not feasible in practice. Some pushes for a more open process with varying degree of transparency ranging from open feedback to open referee identity. Inevitably, there are concerns from all sides (editor, reviewer, author) about the maximal openess in the process. Therefore, I especially appreciate the project by \citet{soergel2013open}, which gives birth to the platform \href{https://openreview.net/}{OpenReview.net} that supports a myriad of configurations such that journal and conferences can experiment with different dimension of open scholarship. \footnote{\textit{"The word "open" denotes access to information. To characterize a system, then, we must state who has Open Scholarship and Peer Review access to what information, and when. (Additionally there may be special conditions on that access)."}}
+
+Finally, since the topic of peer review is not discipline-specific, relevant
+studies look at it from varying angles. With respect to the more economic
+theory perspective, I was first inspired by the work of
+\citet{garcia2015principal} which proposes a reward system for the reviewer
+under moral hazard problem where the editor is the principal and reviewer the
+agent. Other works focus on the interplay between reviewer and editor
+\citep{garcia2021interplay}, author and editor \cite{garcia2022fraud}, as well
+as author and reviewer \citep{radzvilas2023incentives}. Most of this research
+is published in the \textit{Scientometrics} journal dedicated to scholarly
+literature. It is interesting to see how the economics theory are applied in a
+rather concrete setting.
+
+Drawing on relevant literature, I base the model on the empirical evidence that
+the mostly used peer review mechanism are single-blind and double-blind,
+journal's review system varies from one to another, and some degree of bias
+occurs in single-blind. Though I recognize the principal-agent nature in this
+setting, I do not model the classical adverse selection or moral hazard problem
+due to the fact under the two mechanisms I am going to study, the agent
+(reviewer)'s identity is masked and they receive non reward for the work they
+performed. Incentives or the manipulation of incentives are not considered
+here. I present the full model in the next section.
+\section{Model} \label{sec:model}
+Consider a peer review system with one journal editor and one reviewer. The
+system is described as follows.
+\begin{enumerate}
+    \item A paper is submitted to the journal editor. It has a true quality of either low
+          or high, represented by $h_i \in \set{0,1}$.
+    \item The author of the paper has a binary type as well denoted by $a_i\in
+              \set{o,e}$. The notation here stands for \textit{old and new} which we can
+          think of as \begin{itemize}
+              \item \textit{old}: more experienced, well-known in the research field
+              \item \textit{new}: less experienced researchers
+          \end{itemize}
+    \item Having received the paper, the editor needs to make a decision on acceptance
+          $\delta_i\in\set{0,1}$. He wants to accept good papers ($\delta_i=1$ when
+          $h_i=1$) and reject bad papers. However, the editor does not know the true
+          quality of the paper.
+    \item Since she won't evaluate it herself, she delegates the referee work to a
+          reviewer.
+    \item The reviewer reads the paper more or less carefully by exerting some effort
+          $e$. He then gives recommendations about whether to accept or reject.
+    \item The reviewer can not fully discover the true quality of the paper. The
+          probability that the reviewer recommends acceptance when the paper is good is
+          denoted by $p_1$ and rejection when the paper is bad by $p_0$.
+          \[
+              \p(\delta_i = 1 \mid h_i = 1) = p_1,
+          \]
+          \[
+              \p(\delta_i = 0 \mid h_i = 0) = p_0.
+          \]
+          \begin{itemize}
+              \item For the editor, the higher these probabilities are, the more accurate her
+                    decision is.
+              \item For the reviewer, he needs to spend effort $e$ to discover the true quality
+                    $h_i$. Both $p_1$ and $p_0$ increases with effort level. i.e.,
+                    \[
+                        \frac{\partial p_1(e)}{\partial e} > 0, \quad \frac{\partial p_0(e)}{\partial e} > 0.
+                    \]
+          \end{itemize}
+    \item The editor follows the reviewer's recommendation exactly.
+\end{enumerate}
+
+\subsection{Reviewer}
+\paragraph{Reviewer's effort} The reviewer exerts effort to review papers. The cost of effort is measured in
+time, denoted by $c(e)$, with $\frac{\partial c(e)}{\partial e} > 0$.
+
+The reviewer faces two reviewing systems $\set{\text{Double blind},\text{Single
+            blind}}$. Under the double-blind system, the author's name is removed from the
+paper under referee, while under single-blind, the anonymity comes from the
+reviewer's side. I first discuss the two extreme cases.
+
+In a world where the paper can stay truly anonymous in double-blind
+\footnote{Non-existence of pre-print, no talk has been given etc.} the reviewer
+assigns the same effort $e_b$ to every paper. Given $N$ papers, the total cost
+is \[ Nc(e_b).\]
+
+On the other hand, if reviewer can see the author's name and other information
+in single-blind, I assume that in this way he knows exactly the author's type
+$a_i\in \set{o,e}$. Since it is of our natural tendency to trust more
+experienced people, reviewer would exert less effort checking the paper (proof,
+theorem, etc.) if he knows that the author is of type $o$. Therefore, I have
+\[
+    e_o < e_n .
+\]
+
+If there are $k\%$ authors of type $o$, the total cost of effort is
+\[
+    N \pa{k c(e_o) + (1-k) c(e_n)}.
+\]
+
+It is worth mentioning that in reality however, even under double-blind, full
+anonymity is often not achieved. The reviewer simply knows or can guess the
+author. Let us say that $\lambda\%$ of the time reviewer still knows the
+authors' type. Then the total cost is
+\[
+    N\bra{\lambda \big(k c(e_o) + (1-k) c(e_n)\big) + (1-\lambda) c(e_b)}.
+\]
+The parameter $\lambda$ measures the level of non-anonymity in a research
+field. A larger $\lambda$ represents a case where it is easy for the reviewer
+to find out who the author is.
+
+\paragraph{Reviewer's indifference} Reviewer does not receive monetary award for referee work, this altruistic
+action arises out of professional ethics. Meanwhile, he also faces time
+constraints (e.g., own research, teaching, personal time) thus won't spend as
+much effort as possible on refereeing. I assume that they assign \textbf{a
+    fixed amount of time} to reviewing since there is no incentive to increase or
+decrease the time spent. They are indifferent between double-blind and
+single-blind because the total cost of effort is the same under the two
+mechanisms, i.e.,
+\[
+    \lambda_{sq} \big(k c(e_o) + (1-k) c(e_n)\big) + (1-\lambda_{sq}) c(e_b) = {k c(e_o) + (1-k) c(e_n)}
+\] where $\lambda_{sq}$ represents the level of non-anonymity at status quo under
+double-blind system.
+
+\paragraph{Reviewer's bias}
+As mentioned before, if the reviewer knows the identity of the author, he may
+exert more or less effort depending on the type. From the editor's perspective,
+it is always better to have the reviewer exerts more effort by regarding the
+author as type $n$. In reality, it may also introduce bias when he knows the
+author's type. To be more specific, let us define a new probability
+$p_1(e,a),p_0(e,a)$ which depends on the effort level of reviewer and the
+reviewer's knowledge of author's type. The bias that occurred with type $o$ is
+$p_0(e,o)=p_0(e)-b_o$,which translates to that condition on the paper being low
+quality, the reviewer is somehow more tolerant if he knows the author is of
+type $o$. While for type $e$, the bias takes place in the form of
+$p_1(e,n)=p_1(e)-b_n$, which means that conditional on good paper, reviewer is
+more skeptical of accepting it. All in all, I have
+\[
+    p_1(e,a) =
+    \begin{cases}
+        p_1(e)       & \text{if } a = o , \\
+        p_1(e) - b_n & \text{if } a = n,
+    \end{cases}
+\]
+\[
+    p_0(e,a) =
+    \begin{cases}
+        p_0(e) - b_o & \text{if } a=o,    \\
+        p_0(e)       & \text{if } a = n .
+    \end{cases}
+\]
+\subsection{Editor}
+\paragraph{Editor's objective}
+The editor acts in the interest of the journal. She wants to accept good papers
+and reject bad ones. Recall that the decision is $\delta_i$ and quality $h_i$.
+There are 4 types of outcomes that can enter the editor's objective function.
+\begin{table}[!htbp]
+    \centering
+    \begin{tabular}{c|c|c}
+        \toprule
+                     & $h_i=1$           & $h_i=0$               \\
+        \midrule
+        $\delta_i=1$ & $h_i\delta_i$     & $(1-h_i)\delta_i$     \\
+        $\delta_i=0$ & $h_i(1-\delta_i)$ & $(1-h_i)(1-\delta_i)$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{}
+    \label{tab:editor_objective}
+\end{table}
+
+Consider the case where the editor maximizes the number of correctly accepted
+and correctly rejected paper, that is, $\sum_i h_i\delta_i$ and $\sum_i
+    (1-h_i)(1-\delta_i)$. The objective function is
+\begin{equation}
+    \max \mathbb{E}[\sum_i \delta_i h_i] + \tau \mathbb{E}[\sum_i (1-\delta_i)(1-h_i)]
+\end{equation}
+which is equivalent to
+\[
+    \max  \set{ \p(\delta_i = 1|h_i = 1)\p(h_i = 1) +\tau \p(\delta_i = 0|h_i = 0)\p(h_i = 0)}
+\]
+\paragraph{Editor's payoff}
+I first define some institutional setting before presenting editor's payoff
+under different scenarios.
+\begin{itemize}
+    \item $\alpha$ is the proportion of high quality paper $\p(h_i=1)$.
+    \item $\beta_o$ is the proportion of good paper from $o$ author and $\beta_n$ from $n$ author, satisfying
+          \[k\beta_o+(1-k)\beta_n=\alpha\]
+\end{itemize}
+Now I write the editor's payoff under different scenarios.
+\begin{itemize}
+    \item Base case: I assume that without reading the paper, or delegating anyone to
+          read the paper, the editor accepts and rejects with equal probability
+          ($\p(\delta_i=1|h_i)=1/2$). \footnote{This is not saying that $\delta_i=1/2$ is
+              the optimal decision rule under ignorance.} Her payoff in this case is
+          \[1/2 \alpha +\tau 1/2 (1-\alpha)\]
+
+    \item Double blind with $\lambda=0$: If the full anonymity can be achieved under
+          double-blind system ($\lambda=0$), the payoff is
+          \[p_1(e_b)\alpha+\tau p_0(e_b)(1-\alpha)\]
+    \item Single blind with $\lambda=1$: Under single-blind, the payoff conditioning on
+          the author's type $a_i$ is
+          \begin{equation*}
+              \begin{split}
+                    & \E[\delta_i h_i+\tau(1-\delta_i)(1-h_i)|a_i]                                    \\
+                  = & \p(\delta_i=1|h_i=1,a_i)\p(h_i=1|a_i)+\tau\p(\delta_i=0|h_i=0,a_i)\p(h_i=0|a_i) \\
+                  = & p_1(e_a,a)\beta_a+\tau p_0(e_a,a)(1-\beta_a)
+              \end{split}
+          \end{equation*}
+          Therefore, the total payoff is
+          \[k \bra{p_1(e_o)\beta_o+\tau (p_0(e_o)-b_o)(1-\beta_o)}+(1-k)\bra{(p_1(e_n)-b_n)\beta_n+\tau p_0(e_n)(1-\beta_n)}\]
+    \item Double blind with $0<\lambda<1$: the editor's payoff is a linear combination of
+          the two cases above.
+\end{itemize}
+
+\subsection{Problem Formulation}
+The institutional parameters are
+$\set{k,\lambda_{sq},\alpha,\beta_o,\beta_n,\tau}$. The editor's preference
+parameter is $\tau$ while the reviewer's bias is $\set{b_o,b_n}$. The reviewer
+solves the following (indifference) problem to determine the effort level
+$e_b^*,e_o^*,e_n^*$.
+\begin{equation}
+    \lambda_{sq} \big(k c(e_o) + (1-k) c(e_n)\big) + (1-\lambda_{sq}) c(e_b) = {k c(e_o) + (1-k) c(e_n)}
+\end{equation}
+Given the $e_b^*,e_o^*,e_n^*$, the editor solves the following (maximization)
+problem to determine the optimal mechanism $\in
+    \set{\text{double-blind},\text{single-blind}}$.
+\begin{equation}
+    \begin{split}\label{eq:editor}
+        \max_{\lambda \in \set{\lambda_{sq},1}} & \lambda\pa{k \bra{p_1(e_o)\beta_o+\tau (p_0(e_o)-b_o)(1-\beta_o)}+(1-k)\bra{(p_1(e_n)-b_n)\beta_n+\tau p_0(e_n)(1-\beta_n)} } \\
+                                                & +(1-\lambda)\pa{p_1(e_b)\alpha+\tau p_0(e_b)(1-\alpha)}                                                                       \\
+    \end{split}
+\end{equation}
+Therefore, emulating the principal-agent problem, I write
+\begin{equation}\label{eq:combined}
+    \begin{split}
+        \max_{\lambda \in \set{\lambda_{sq},1},e_b,e_n,e_o} & \text{editor's payoff}         \\
+        \text{s.t.} \quad                                   & \text{reviewer's indifference}
+    \end{split}
+\end{equation}
+
+\section{Analysis} \label{sec:analysis}
+The reviewer's indifference condition simplifies to
+\begin{equation*}
+    c(e_b) =  k c(e_o) + (1-k) c(e_n).
+\end{equation*}
+Since the decision on $\lambda^*$ is binary, the editor's optimisation boils down to comparing the first and second term  in equation \ref{eq:editor}.
+Rearranging the terms, I only need tocompare
+\[ k\beta_o p_1(e_o) + (1-k)\beta_n p_1(e_n) + \tau(k(1-\beta_o)p_0(e_o) + (1-k)(1-\beta_n)p_0(e_n))\underbrace{-k\tau b_o(1-\beta_o) - (1-k)\tau b_n\beta_n }_{\text{bias}}\]
+with \[\alpha p_1(e_b) + \tau(1-\alpha)p_0(e_b).\]
+I first make comparison without taking into account the bias term.
+\paragraph{Linear case} Starting with the simplest, I assume that $c(e)=p_1(e)=p_0(e)=e$. Comparing
+$k\beta_o p_1(e_o) + (1-k)\beta_n p_1(e_n)$ and $\alpha p_1(e_b)$ boils down to
+\begin{equation*}
+    \begin{bmatrix}
+        k\beta_o & (1-k)\beta_n
+    \end{bmatrix}
+    \pa{
+        \begin{bmatrix}
+            e_0 \\ e_n
+        \end{bmatrix}
+        -
+        \begin{bmatrix}
+            1 \\ 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            k & 1-k
+        \end{bmatrix}
+        \begin{bmatrix}
+            e_0 \\ e_n
+        \end{bmatrix}}
+    \stackrel{?}{\leq} 0
+\end{equation*}
+% \begin{equation*}
+%     \begin{bmatrix}
+%         \alpha_1 & \alpha_2
+%     \end{bmatrix}
+%     \pa{
+%         \begin{bmatrix}
+%             1-k & k-1 \\
+%             -k  & k
+%         \end{bmatrix}
+%         \begin{bmatrix}
+%             e_o \\ e_n
+%         \end{bmatrix}}
+%     \stackrel{?}{\geq} 0
+% \end{equation*}
+% \begin{equation*}
+%     \begin{bmatrix}
+%         \alpha_1 & \alpha_2
+%     \end{bmatrix}
+
+%     \begin{bmatrix}
+%         k-1 \\
+%         k
+%     \end{bmatrix}
+%     (e_n-e_o)
+%     \stackrel{?}{\geq} 0
+% \end{equation*}
+\begin{equation*}
+    k\beta_o (k-1)+(1-k)\beta_n k  \Leftrightarrow \beta_n-\beta_o \stackrel{?}{\leq} 0.
+\end{equation*}
+By definition $\beta_n<\beta_o$, which implies that the second term is larger than the first term even without bias. Adding back the bias, editor prefers double-blind undoubtedly.
+
+\paragraph{General case} My intuition is that if $c''(e)>p''(e) \ \forall e$, then even without the
+bias, the editor prefers double-blind mechanism. To begin with, I take $p(e)=e$
+and $c(e)=1/2e^2$. I can write the condition as
+\begin{equation*}
+    \begin{bmatrix}
+        k\beta_o & (1-k)\beta_n
+    \end{bmatrix}
+    \pa{
+        \begin{bmatrix}
+            p(e_0) \\ p(e_n)
+        \end{bmatrix}
+        -
+        \begin{bmatrix}
+            1 \\ 1
+        \end{bmatrix}
+        p(e_b)}
+    \stackrel{?}{\leq} 0
+\end{equation*}
+while
+\[e_b^2 = k e_o^2 + (1-k)e_n^2 \Leftrightarrow e_b = k^* e_o + (1-k^*)e_n \text{ for some } k^*<k\]
+The condition is more negative in this case.
+\begin{equation*}
+    k\beta_o (k^*-1)+(1-k)\beta_n k^* < \beta_n-\beta_o< 0.
+\end{equation*}
+
+Now I assume that $c(x)=\log(x+1)$ and $p(x)=x$, then the fact that $e_b = k^*
+    e_o + (1-k^*)e_n \text{ for some } k^*>k$ implies that the condition $k\beta_o
+    (k^*-1)+(1-k)\beta_n k^*$ is ambiguous. If $\beta_n$ is not too small compared
+to $\beta_o$ (the proportion of good paper from $n$ author is not that
+different from $o$ author), and the bias $b_o, b_n$ not too large, then it is
+possible that the editor prefers single-blind mechanism with $\lambda=1$.
+\begin{proposition}
+    If $c''(e)\ge p''(e)$ for all $e$, the editor always prefers double-blind mechanism subject to a status quo level of anonymity $\lambda_{sq}$. When it is not the case and that the author's productivity difference, reviewer's bias are not too large, editor may prefer single-blind mechanism.
+\end{proposition}
+
+While I was expecting that the status quo anonymity
+$\lambda_{sq}$\footnote{i.e., how difficult it is for the paper to be truly
+    blind} would play a role in the editor's decision $\lambda \in
+    \set{\lambda_{sq},1}$, it turns out that it doesn't matter at all under the
+model I set up. This is a question to be investigated in the next section.
+
+\section{Discussion}
+In this section, I discuss several aspects of the model that I have thought
+about but ignored in the previous section.
+\paragraph{Non-anonymity level $\lambda_{sq}$} Several papers have provided
+evidence that for some research field, there's no point bothering with
+double-blind. Because reviewers are assigned papers in their respective fields,
+chances are that they have already seen the work as preprint in archive,
+working paper or attended the author's talk themselves. This is especially true
+if the field is niche. This evidence suggests that intuitively speaking, a
+higher level of $\lambda_{sq}$ should favor single-blind.
+
+As discussed in section \ref{sec:analysis}, the editor chooses double-blind for
+sure if full anonymity gives a higher payoff than full-disclosure. However,
+even under double-blind, full anonymity is not achieved because there exists an
+inherent non-anonymity level $\lambda_{sq}$ for each research field. All other
+things being equal, a research field where it is easier for papers to stay
+truly blind (low $\lambda_{sq}$) should more likely end up in a double-blind
+system than a field where everyone knows everyone (high $\lambda_{sq}$). To
+incorporate the idea into a model, I should introduce a fixed cost $c$ for the
+editor if she implements a double-blind mechanism. The fixed cost spent in
+anonymizing papers\footnote{This is more than just removing names but also
+    verifying if there's any revealing information in the paper} is the same for
+every field. Therefore, even if
+\begin{equation*}
+    \begin{split}
+        \alpha p_1(e_b) + \tau(1-\alpha)p_0(e_b)> &
+        k\beta_o p_1(e_o) + (1-k)\beta_n p_1(e_n)   \\ & + \tau(k(1-\beta_o)p_0(e_o) + (1-k)(1-\beta_n)p_0(e_n))\\
+                                                  &
+        \underbrace{-k\tau b_o(1-\beta_o) - (1-k)\tau b_n\beta_n }_{\text{bias}}
+    \end{split}
+\end{equation*}
+the anonymization cost may be too large to make double-blinding beneficial if the weight $(1-\lambda_{sq})$ on the larger term $\alpha p_1(e_b) + \tau(1-\alpha)p_0(e_b)>$ is small.
+By incorporating a fixed anonymization cost, the editor's choice of mechanism will depend on the status quo non-anonymity level $\lambda_{sq}$ (as I wish).
+
+\paragraph{Reviewer's indifference condition} I have assumed reviewer is indifferent between the two mechanism since they do
+not get compensation or reward for their time spent, as in reality. This
+indifference condition serves as a constraint in the combined problem
+\ref{eq:combined}. However, I argue that this condition is not enough to pin
+down the effort level $(e_b, e_o, e_n)$ given all the parameters specified
+before. Because for either $\lambda\in \set{\lambda_{sq},1}$ the editor's
+payoff is maximized when effort is as high as possible. Yet there's no
+constraint on the upper bound of $c(e)$. It should be imposed e.g.,
+$kc(e_o)+(1-k)(e_n)<\bar{c}$ so that all decision variable $\lambda, e_b, e_o,
+    e_n$ can be pinned down.
+
+Another extension is to introduce reviewer's incentive in their effort
+decision. Currently, since both mechanism \textit{blind} reviewer's identity
+such that they only get "We thank the anonymized reviewers for their helpful
+feedback." as reward. It would be interesting to think about rewarding reviewer
+in a non-pecuniary way. Propositions include credit system, promotion scheme
+etc. Or we can imagine a world where there's openness to the reviewer's
+feedback or even revelation of his identity. If reviewer is incentivized in
+some ways, the original question would take on the flavor of the classical
+principal-agent problem. In this case, the editor (principal) will juggle
+between many things in her choice of mechanism.
+
+\paragraph{Editor's objective function}
+I have briefly alluded to the 4 types of editor's concern as in table
+\ref{tab:editor_objective}. Intuitively, the editor wants to maximize diagonal
+terms and minimized the off-diagonal ones. I argue that it is enough to take 2
+out of 4 such that the there exists a countervailing pair $h_i\delta_i$ and
+$-\delta_i$.\footnote{By labeling the element in the table horizontally, I can
+    take $(1,2),(1,4),(2,4),(2,3),(4,3)$. Taking only $4$ also works if I treat the
+    two forces (accept good and reject bad) equally.} \pagebreak \newpage
+\bibliography{../References/ref.bib}
+
+\end{document}
