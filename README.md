@@ -1,4 +1,4 @@
-# MRes Contract Theory, Part 1 (Fall 2024) Research Proposal
+# MRes Contract Theory, Part 1 (Fall 2024) Research Paper
 
 For requirements, see [here](/Requirements/assignment.pdf)
 
